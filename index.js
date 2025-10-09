@@ -26,6 +26,12 @@ app.use(express.static("public"));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Make the authenticated user available in all templates as `user`
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 const db = new pg.Client({
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
