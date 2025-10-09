@@ -41,8 +41,10 @@ const db = new pg.Client({
 });
 db.connect();
 
-app.get("/", (req, res) => {
-  res.render("home.ejs");
+app.get("/", async (req, res) => {
+  const secrets = await getSecrets();
+  console.log(secrets);
+  res.render("home.ejs", { secrets: secrets });
 });
 
 app.get("/login", (req, res) => {
@@ -69,15 +71,15 @@ app.get("/secrets", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
       const result = await db.query(
-        `SELECT secret FROM users WHERE email = $1`,
+        `SELECT secret FROM secrets WHERE user_email = $1`,
         [req.user.email]
       );
       console.log(result);
-      const secret = result.rows[0].secret;
-      if (secret) {
-        res.render("secrets.ejs", { secret: secret });
+      const secrets = result.rows;
+      if (secrets.length > 0) {
+        res.render("secrets.ejs", { secret: secrets });
       } else {
-        res.render("secrets.ejs", { secret: "Jack Bauer is my hero." });
+        res.render("secrets.ejs", { secret: "No secrets found." });
       }
     } catch (err) {
       console.log(err);
@@ -157,9 +159,9 @@ app.post("/submit", async function (req, res) {
   const submittedSecret = req.body.secret;
   console.log(req.user);
   try {
-    await db.query(`UPDATE users SET secret = $1 WHERE email = $2`, [
+    await db.query("INSERT INTO secrets (secret, user_email) VALUES ($1, $2)", [
       submittedSecret,
-      req.user.email,
+      req.user.email
     ]);
     res.redirect("/secrets");
   } catch (err) {
@@ -238,3 +240,13 @@ passport.deserializeUser((user, cb) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+async function getSecrets(){
+  try {
+    const result = await db.query("SELECT secret FROM secrets");
+    return result.rows;
+  } catch (err) {
+    console.error("Error fetching secrets:", err);
+    throw err;  
+  }
+}
