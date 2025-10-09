@@ -44,6 +44,18 @@ No need to create a table, just create a database, and make sure it connects to 
 
 ```sql
 CREATE DATABASE SecretsDB;
+
+CREATE TABLE users(
+id SERIAL PRIMARY KEY,
+email VARCHAR(100) NOT NULL UNIQUE,
+password VARCHAR(100),
+);
+
+CREATE TABLE secrets(
+id SERIAL PRIMARY KEY,
+secret TEXT NOT NULL,
+user_email VARCHAR(100) REFERENCES users(email)
+);
 ```
 
 ### Environment Variables
