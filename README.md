@@ -62,7 +62,7 @@ PG_PASSWORD=""
 PG_PORT=5432
 ```
 
-Google OAuth setup (short):
+Google OAuth setup:
 
 1. Go to https://console.developers.google.com and create or select a project.
 2. Under "APIs & Services" → "Credentials" create an OAuth 2.0 Client ID for a Web application.
