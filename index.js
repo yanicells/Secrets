@@ -75,7 +75,7 @@ app.get("/secrets", async (req, res) => {
       if (secrets.length > 0) {
         res.render("secrets.ejs", { secret: secrets });
       } else {
-        res.render("secrets.ejs", { secret: "No secrets found." });
+        res.render("secrets.ejs", { secret: "No secrets posted." });
       }
     } catch (err) {
       console.log(err);

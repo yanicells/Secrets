@@ -5,9 +5,12 @@
     <p class="text-slate-600 mb-6">Don't keep your secrets, share them anonymously.</p>
   
     <div class="flex justify-center gap-3">
-      <a href="/register"
-        class="px-4 py-2 rounded-md border border-gray-200 text-slate-700 bg-white hover:bg-gray-50 transition">Register</a>
-      <a href="/login" class="px-4 py-2 rounded-md bg-slate-700 text-white hover:bg-slate-800 transition">Login</a>
+      <% if (user) { %>
+        <a href="/secrets" class="px-4 py-2 rounded-md border border-gray-200 text-slate-700 bg-white hover:bg-gray-50 transition">View my secrets</a>
+      <% } else { %>
+        <a href="/register" class="px-4 py-2 rounded-md border border-gray-200 text-slate-700 bg-white hover:bg-gray-50 transition">Register</a>
+        <a href="/login" class="px-4 py-2 rounded-md bg-slate-700 text-white hover:bg-slate-800 transition">Login</a>
+      <% } %>
     </div>
   </main>
 
@@ -30,8 +33,12 @@
         <h1 class="text-4xl font-semibold text-slate-800 mb-2">Secrets</h1>
         <p class="text-slate-600 mb-6">Don't keep your secrets, share them anonymously.</p>
         <div class="flex justify-center gap-3">
-          <a href="/register" class="px-4 py-2 rounded-md border border-gray-200 text-slate-700 bg-white hover:bg-gray-50 transition">Register</a>
-          <a href="/login" class="px-4 py-2 rounded-md bg-slate-700 text-white hover:bg-slate-800 transition">Login</a>
+          <% if (user) { %>
+            <a href="/secrets" class="px-4 py-2 rounded-md border border-gray-200 text-slate-700 bg-white hover:bg-gray-50 transition">View my secrets</a>
+          <% } else { %>
+            <a href="/register" class="px-4 py-2 rounded-md border border-gray-200 text-slate-700 bg-white hover:bg-gray-50 transition">Register</a>
+            <a href="/login" class="px-4 py-2 rounded-md bg-slate-700 text-white hover:bg-slate-800 transition">Login</a>
+          <% } %>
         </div>
       </div>
     <% } %>
