@@ -43,7 +43,6 @@ db.connect();
 
 app.get("/", async (req, res) => {
   const secrets = await getSecrets();
-  console.log(secrets);
   res.render("home.ejs", { secrets: secrets });
 });
 
@@ -65,8 +64,6 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/secrets", async (req, res) => {
-  console.log(req.user);
-
   ////////////////UPDATED GET SECRETS ROUTE/////////////////
   if (req.isAuthenticated()) {
     try {
@@ -74,7 +71,6 @@ app.get("/secrets", async (req, res) => {
         `SELECT secret FROM secrets WHERE user_email = $1`,
         [req.user.email]
       );
-      console.log(result);
       const secrets = result.rows;
       if (secrets.length > 0) {
         res.render("secrets.ejs", { secret: secrets });
@@ -157,7 +153,6 @@ app.post("/register", async (req, res) => {
 ////////////////SUBMIT POST ROUTE/////////////////
 app.post("/submit", async function (req, res) {
   const submittedSecret = req.body.secret;
-  console.log(req.user);
   try {
     await db.query("INSERT INTO secrets (secret, user_email) VALUES ($1, $2)", [
       submittedSecret,
