@@ -1,6 +1,6 @@
 # Secrets
 
-A lightweight app for keeping personal "secrets" safe. Users authenticate via Google OAuth.
+A lightweight app for keeping personal "secrets" safe. Users authenticate via Google OAuth. A demo of the app can be found through this link [https://drive.google.com/file/d/1igcVHB7b9Xx2kXGPNNNPPM-JhGhIkn5r/view]
 
 ## Tech Stack
 
